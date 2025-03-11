@@ -37,7 +37,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 ---
 
 ## ⚙️ Environment Variables
-Create a `.env` file in the root directory and add the following:
+Create a `.env.local` file in the root directory and add the following:
 
 ```env
 NEXT_PUBLIC_API_BASE_URL=https://jsonplaceholder.typicode.com

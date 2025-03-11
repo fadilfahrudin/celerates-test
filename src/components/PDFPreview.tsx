@@ -26,7 +26,7 @@ const PDFPreview = () => {
 
                     <div className="flex gap-4">
                         <Button variant='outline' onClick={() => setIsOpen(false)}>Close</Button>
-                        <PDFDownloadLink document={<PDFDocument userData={userData as UserType} />} fileName="user-profile.pdf">
+                        <PDFDownloadLink document={<PDFDocument userData={userData as UserType} />} fileName={`${userData?.name}-profile.pdf`}>
                             {({ loading }) => (
                                 <Button>
                                     {loading ? "Loading PDF..." : "Download PDF"}
