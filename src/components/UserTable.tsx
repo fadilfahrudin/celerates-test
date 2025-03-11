@@ -15,22 +15,18 @@ import { Pencil, Download } from "lucide-react"
 import React from 'react'
 import { useUserContext } from '../context/UserContext'
 import { useModal } from '../context/ModalContext'
-
+import { useRouter } from 'next/navigation'
 
 const UserTable = () => {
+
     const { users, setUserId } = useUserContext()
     const { setIsOpen, setModalType } = useModal()
+    const router = useRouter()
 
     const onEdit = (userId: number) => {
         setIsOpen(true)
         setUserId(userId)
         setModalType('edit')
-    }
-
-    const onPreview = (userId: number) => {
-        setIsOpen(true)
-        setUserId(userId)
-        setModalType('preview')
     }
 
     return (
@@ -53,8 +49,8 @@ const UserTable = () => {
                             <TableCell>{user.name}</TableCell>
                             <TableCell>{user.email}</TableCell>
                             <TableCell>{user.phone}</TableCell>
-                            <TableCell>
-                                <Button onClick={() => onPreview(user.id)} variant="ghost">
+                            <TableCell className='flex'>
+                                <Button onClick={() => router.push(`/preview/${user.id}`)} variant="ghost">
                                     <Download />
                                 </Button>
                                 <Button onClick={() => onEdit(user.id)} variant="ghost">

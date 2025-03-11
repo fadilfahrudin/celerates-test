@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { UserType } from "../type/userType";
 
 
@@ -13,12 +13,43 @@ type UserContextType = {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const UserProvider = ({ children, initialUsers }: { children: React.ReactNode, initialUsers: UserType[] }) => {
-    const [users, setUsers] = useState<UserType[]>(initialUsers);
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+    const [users, setUsers] = useState<UserType[]>([]);
     const [userId, setUserId] = useState(0);
+    const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users`);
+                if (!res.ok) {
+                    throw new Error("Failed to fetch users");
+                }
+                const data = await res.json();
+                setUsers(data);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    return <UserContext.Provider value={{ users, setUsers, userId, setUserId }}>{children}</UserContext.Provider>;
+        fetchUsers();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className='absolute left-0 top-0 w-full h-full  flex justify-center items-center'>
+                <div className='w-[50px] aspect-square bg-neutral-950 rounded-full animate-bounce'></div>
+            </div>
+        )
+    }
+
+    return (
+        <UserContext.Provider value={{ users, setUsers, userId, setUserId }}>
+            {children}
+        </UserContext.Provider>
+    );
 };
 
 export const useUserContext = () => {
