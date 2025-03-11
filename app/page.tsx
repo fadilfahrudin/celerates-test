@@ -6,7 +6,7 @@ import { UserProvider } from "@/src/context/UserContext";
 import { Suspense } from "react";
 
 async function getData() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users')
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users`);
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')
