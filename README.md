@@ -1,9 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Celerates - Frontend Engineer Technical Assessment
 
-## Getting Started
+## 📌 Project Overview
+This project is a technical assessment for a frontend engineer role at Celerates. It is built using **Next.js 14**, **Zod**, **react-hook-form**, **Tailwind CSS**, **Shadcn UI**, and several dependencies for generating **PDF documents**. The application fetches data from [JSONPlaceholder](https://jsonplaceholder.typicode.com) using React's built-in context for state management.
 
-First, run the development server:
+---
 
+## 🚀 Getting Started
+### 1️⃣ Clone the Repository
+```bash
+git remote add origin https://github.com/fadilfahrudin/celerates-test.git
+cd celerates-test
+```
+
+### 2️⃣ Install Dependencies
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### 3️⃣ Run the Development Server
 ```bash
 npm run dev
 # or
@@ -14,23 +32,57 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚙️ Environment Variables
+Create a `.env` file in the root directory and add the following:
 
-## Learn More
+```env
+NEXT_PUBLIC_API_BASE_URL=https://jsonplaceholder.typicode.com
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 🔹 Explanation:
+- `NEXT_PUBLIC_API_BASE_URL`: The base URL for the JSONPlaceholder API.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔗 API Documentation
+This project consumes data from **JSONPlaceholder**:
 
-## Deploy on Vercel
+| Endpoint | Description |
+|----------|-------------|
+| `GET /users` | Fetches a list of users |
+| `GET /users/:id` | Fetches details of a single user |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Example API call in the project:
+```ts
+fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users`)
+  .then(res => res.json())
+  .then(data => console.log(data));
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📌 Key Decisions & Assumptions
+1️⃣ **State Management:** Uses **React Context API** instead of Redux, since the application is simple and does not require complex state management.
+2️⃣ **PDF Generation:** Uses `@react-pdf/renderer` for generating PDFs dynamically.
+3️⃣ **Form Handling & Validation:** Uses `react-hook-form` and `Zod` for form validation and type safety.
+4️⃣ **Styling:** Uses `Tailwind CSS` and Shadcn UI for rapid styling and consistent design.
+5️⃣ **Next.js 14:** Utilized for server-side rendering (SSR) and performance optimizations.
+
+---
+
+## 🎯 Features
+✅ Fetch user data from JSONPlaceholder
+✅ Display user details & editable
+✅ Generate a downloadable **PDF** with user details
+✅ Form handling with validation using `react-hook-form`
+✅ Responsive UI with Tailwind CSS & Shadcn UI components
+
+---
+
+## 📜 License
+This project is licensed under the MIT License.
+
